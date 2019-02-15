@@ -1,11 +1,43 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
-class App extends Component {
+import Header from './components/Header'
+import Counter from './components/Counter'
+
+const reducer = (state = { counter: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        counter: state.counter + 1
+      }
+
+    case 'DECREMENT':
+      return {
+        counter: state.counter + 1
+      }
+
+    default:
+      return state
+  }
+}
+
+const reduxStore = createStore(
+  reducer,
+  // Add Redux DevTools Extension
+  // https://github.com/zalmoxisus/redux-devtools-extension#11-basic-store
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+
+class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Learn React Redux</h1>
-      </div>
+      <Provider store={reduxStore}>
+        <div>
+          <Header />
+          <Counter />
+        </div>
+      </Provider>
     )
   }
 }
