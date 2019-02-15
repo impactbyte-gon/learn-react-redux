@@ -1,7 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const Header = () => {
-  return <h1>Learn React Redux</h1>
+const Header = props => {
+  return <h1>Learn React Redux {props.counter} times</h1>
 }
 
-export default Header
+const mapStateToProps = state => {
+  return {
+    counter: state.counter
+  }
+}
+
+export default connect(mapStateToProps)(Header)
